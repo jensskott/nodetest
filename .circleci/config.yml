@@ -18,7 +18,7 @@ jobs:
           name: Build and push Docker image
           command: |
             docker build -t mardle/$IMAGE_NAME:latest .
-            echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+            docker login -u $DOCKER_LOGIN -p $DOCKER_PWD
             if [[ -z "${CIRCLE_TAG}" ]]; then
               docker tag -t mardle/$IMAGE_NAME:latest -t mardle/$IMAGE_NAME:$CIRCLE_TAG
               docker push mardle/$IMAGE_NAME:$TAG
