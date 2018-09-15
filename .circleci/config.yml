@@ -20,7 +20,7 @@ jobs:
             docker build -t mardle/$IMAGE_NAME:latest .
             docker login -u $DOCKER_LOGIN -p $DOCKER_PWD
             if [[ -z "${CIRCLE_TAG}" ]]; then
-              docker tag -t mardle/$IMAGE_NAME:latest -t mardle/$IMAGE_NAME:$CIRCLE_TAG
+              docker tag mardle/$IMAGE_NAME:latest mardle/$IMAGE_NAME:$CIRCLE_TAG
               docker push mardle/$IMAGE_NAME:$TAG
               docker push mardle/$IMAGE_NAME:latest
             else 
