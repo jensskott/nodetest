@@ -20,17 +20,17 @@ jobs:
             docker build -t mardle/$IMAGE_NAME:latest .
             docker login -u $DOCKER_LOGIN -p $DOCKER_PWD
             if [[ -z "${CIRCLE_TAG}" ]]; then
+              docker push mardle/$IMAGE_NAME:latest
+            else
               docker tag mardle/$IMAGE_NAME:latest mardle/$IMAGE_NAME:$CIRCLE_TAG
               docker push mardle/$IMAGE_NAME:$TAG
-              docker push mardle/$IMAGE_NAME:latest
-            else 
               docker push mardle/$IMAGE_NAME:latest
             fi
       # - run:
       #     name: Deploy app to Digital Ocean Server via Docker
       #     command: |
       #       if [[ -z "${CIRCLE_TAG}" ]]; then
-      #         deploy/ecs.py --image mardle/$IMAGE_NAME:$CIRCLE_TAG --region $REGION
-      #       else
       #         deploy/ecs.py --image mardle/$IMAGE_NAME:latest --region $REGION
+      #       else
+      #         deploy/ecs.py --image mardle/$IMAGE_NAME:$CIRCLE_TAG --region $REGION
       #       fi
